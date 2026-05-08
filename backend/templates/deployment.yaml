@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: expense
+  #these labels are deployment related labels.
+  labels:
+    component: backend
+    project: expense
+    tier: app
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      component: backend
+      project: expense
+      tier: app
+#below is pod definition
+  template:
+    metadata:
+      labels:
+        component: backend
+        project: expense
+        tier: app
+    spec:
+       containers:
+       - name: mysql
+         image: lingadevops/backend:{{ .Values.deployment.imageVersion }} # Please use your own image here. lingadevops/mysql:v1.0 
+         envFrom:
+         - configMapRef:
+             name: backend   

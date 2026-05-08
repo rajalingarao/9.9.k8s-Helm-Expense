@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: debug
+  namespace: expense
+  #these labels are deployment related labels.
+  labels:
+    component: debug
+    project: expense
+    tier: db
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      component: debug
+      project: expense
+      tier: db
+#below is pod definition
+  template:
+    metadata:
+      labels:
+        component: debug
+        project: expense
+        tier: db
+    spec:
+      containers:
+      - name: debug
+        image: lingadevops/debug:{{ .Values.deployment.imageVersion }} # Please use your own image here. lingadevops/debug:v1.1  
