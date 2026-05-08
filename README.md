@@ -21,7 +21,14 @@ cd ../frontend/
 
 helm install frontend .
 
-kubectl get pods
+kubectl get pods -n expense
+
+kubectl exec -it mysql-zegsrxtredg -n expense -- bash
+mysql -h mysql -uroot -pExpenseApp@1
+use transactions;
+select * from transactions;
+
+
 
 # Note: we can access application using Load Balanncer, but it takes some time to load expense application.
 a6e42898bef734110ae2c99386b5296a-292488674.us-east-1.elb.amazonaws.com
